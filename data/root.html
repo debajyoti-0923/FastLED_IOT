@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.4,user-scalable=no">
+    <title>Ambi</title>
+    <link rel="shortcut icon" href="title.ico" type="image/x-icon" />
+</head>
+<style>
+    @font-face {
+        font-family: myFirstFont;
+        src: url('font.otf') format('opentype');
+    }
+    .mainBody{
+
+        background: linear-gradient(rgba(255,255,255,0.85),rgba(255,255,255,0.85)),url('back.webp');     
+        margin: 0;
+        padding: 0;
+        min-width: 800px;
+        align-content: center;
+        font-family: myFirstFont,sans-serif;
+    }
+    .header {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width:100vw;
+        text-align: center;
+        background: #4ecdc4;
+        border-style: solid;
+        border-left: #000000;
+        border-right: #000000;
+        border-width: 2px;
+        /* color: white; */
+
+    }
+    .slider-container {
+        width: 50%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    #nameimage{
+        height: 85px;
+    }
+    .main-grid{
+        width: 100%;
+    }
+    .grid-buttons{
+        padding-top: 20px;
+        justify-items: center;
+        align-items: center;
+        display: grid;
+        width: 100%;
+        grid-template-rows: repeat(7,1fr);
+        grid-template-columns: repeat(2,1fr);
+        gap: 15px;
+    }
+
+
+    .square-button{
+      border-radius: 40px;
+      border-width: 8px;
+      border-style: solid;
+      padding-left: 40px;
+      padding-right: 40px;
+      border-color: #6b6b6b;
+      width:92%;
+      height: 100px;
+      font-size: 45px;
+      background-color: #ffe1a8;
+      overflow: hidden;
+      font-family: myFirstFont,sans-serif;
+    }
+
+    .square-button:active{
+      background-color: #fbbd4b;
+    }
+
+    .off-button{
+      border-radius: 40px;
+      border-width: 8px;
+      border-style: solid;
+      padding-left: 40px;
+      padding-right: 40px;
+      border-color: #6b6b6b;
+      width:95%;
+      height: 100px;
+      font-size: 45px;
+      background-color: rgb(255, 154, 154);
+      overflow: hidden;
+      font-family: myFirstFont,sans-serif;
+    }
+
+    .off-button:active{
+        background-color:rgb(247, 82, 82) ;
+    }
+
+    .custom-wheel{
+        padding-top: 20px;
+        justify-items: center;
+        align-items: center;
+        display: grid;
+        width: 100%;
+        height: fit-content;
+        grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+        grid-gap: 5px;
+    }
+    .custom-header{
+        color: #000000;
+        font-size: 50px;
+        margin: 0;
+    }
+    #image-container {
+        position: relative;
+    }
+    #image {
+        clip-path: circle(50% at 50% 50%); 
+        height: 500px;
+    }
+    #indicator {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: transparent;
+        border: 7px solid #000000;
+    }
+    .color-displays-grid{
+        padding-top: 30px;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        width: 550px;
+        grid-template-columns: repeat(3,1fr);
+        gap: 5px;
+    }
+
+    .circular-button{
+        width: 130px;
+        height: 130px;
+        border-radius: 100px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: #6b6b6b;
+        overflow: hidden;
+        font-size: 50px;
+        background-color: #a1a1a1;
+        font-family: myFirstFont,sans-serif;
+    }
+
+
+    .save-pal-div{
+        padding: 20px;
+        width: 60%;
+        height: 100px;
+    }
+    .save-pal{
+        border-radius: 40px;
+        border-width: 8px;
+        width: 100%;
+        height: 100%;
+        font-size: 50px;
+        font-family: myFirstFont;
+        background-color: #ffe1a8;
+    }
+
+    .settings{
+        justify-items: center;
+        align-items: center;
+        display: grid;
+        width: 100%;
+        height: fit-content;
+        grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+        grid-gap: 5px;
+    }
+
+    
+    .inp-div{
+        display: flex;
+        height: 100px;
+        padding: 0px;
+        width: 90%;
+        gap: 10px;
+        justify-items: center;
+        justify-content: center;
+        align-items: center;
+    }
+    .drop{
+        border-radius: 20px;
+        border-width: 8px;
+        border-color: #828282;
+        border-style: solid;
+        height: 90px;
+        width: 30%;
+        font-size: 35px;
+        font-family: myFirstFont;
+    }
+    .inp{
+        border-radius: 20px;
+        border-width: 8px;
+        border-color: #828282;
+        border-style: solid;
+        width: 50%;
+        height: 70px;
+        font-size: 35px;
+        font-family: myFirstFont;
+    }
+    .inp-sub{
+        border-radius: 20px;
+        border-width: 8px;
+        border-color: #828282;
+        width: 20%;
+        height: 90px;
+        font-size: 35px;
+        font-family: myFirstFont;
+        background-color: #ffe1a8;
+    }
+    .label{
+        /* color: aliceblue; */
+        font-size: 40px;
+        position: relative;
+        margin: 0;
+        padding-top: 20px;
+    }
+
+    .bright-font{
+        font-family: myFirstFont;
+        font-size: 45px;
+        width: 30%;
+        /* color: aliceblue; */
+    }
+
+    .bright-bar{
+        width: 100%;
+        height: 40px;
+        border-radius: 20px;
+        outline: none;
+        -webkit-appearance: none;
+        appearance: none;
+        background-color:rgb(175, 175, 175);
+        
+    }
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 30px;
+        height: 50px;
+        background: #454545;
+        border-radius: 5px;
+
+        
+    }
+</style>
+<body class="mainBody">
+    <div class="header">
+        <img id="nameimg" src="ambi.png" alt="Image">
+    </div>
+    <div style="display: flex; justify-content: center; padding-top: 20px;">
+        <button id="pwr" class="off-button">OFF</button>
+    </div>
+    <div class="inp-div" style="width: 95%; padding: 15px;">
+        <p class="bright-font">Bright:</p>
+        <input class="bright-bar" type="range" id="slider" min="20" max="240" step="1" value="150" onchange="updateValue(this.value)">
+    </div>
+    <div class="main-grid">
+        <div style="display: flex; justify-content: center;">
+            <h1 class="custom-header">Themes</h1>
+        </div>
+        <div class="grid-buttons">
+            <button id="b1" class="square-button" value=1>SunRise</button>
+            <button id="b2" class="square-button" value=2>Morning</button>
+            <button id="b3" class="square-button" value=3>AfterNoon</button>
+            <button id="b4" class="square-button" value=4>SunSet</button>
+            <button id="b5" class="square-button" value=5>Evening</button>
+            <button id="b6" class="square-button" value=6>Night</button>
+            <button id="b7" class="square-button" value=7>Low Light</button>
+            <button id="b8" class="square-button" value=8>Color 1</button>
+            <button id="b9" class="square-button" value=9>Color 1&2</button>
+            <button id="b10" style="font-size: 41px;" class="square-button" value=10>Color 1&2&3</button>
+            <button id="b11" style="font-size: 38px;" class="square-button" value=11>Preset Cycle</button>
+            <button id="b12" style="font-size: 43px;"class="square-button" value=12>Color Cycle</button>
+            <button id="b13" class="square-button" value=13>Gradient</button>
+            <button id="b14" class="square-button" value=14>Auto</button>
+        </div>
+
+        <div class="custom-wheel">
+            <h1 class="custom-header">Custom Color</h1>
+            <div id="image-container">
+                <img id="image" src="img.png" alt="Image">
+                <div id="indicator"></div>
+            </div>
+            <div class="color-displays-grid">
+                <button class="circular-button" id="but1">1</button>
+                <button class="circular-button" id="but2">2</button>
+                <button class="circular-button" id="but3">3</button>
+            </div>
+            <div class="save-pal-div">
+                <button class="save-pal" id="savepal">Save pallete</button>
+            </div>
+        </div>
+
+        <div class="settings">
+            <h1 class="custom-header">Settings</h1>
+            <div class="inp-div" style="width: 95%; padding: 15px;">
+              <p class="bright-font">Speed:</p>
+              <input class="bright-bar" type="range" id="slider2" min="1" max="50" step="2" value="35" onchange="updateSpeed(this.value)">
+          </div>
+            <h2 class="label">Default Theme :</h2>
+            <div class="inp-div">
+                <select class="drop" style="width: 80%;" id="deftheme">
+                    <option id="d1" value="1">Sunrise</option>
+                    <option id="d2" value="2">Morning</option>
+                    <option id="d3" value="3">AfterNoon</option>
+                    <option id="d4" value="4">SunSet</option>
+                    <option id="d5" value="5">Evening</option>
+                    <option id="d6" value="6">Night</option>
+                    <option id="d7" value="7">LowLight</option>
+                    <option id="d8" value="8">Color 1</option>
+                    <option id="d9" value="9">Color 1&2</option>
+                    <option id="d10" value="10">Color 1&2&3</option>
+                    <option id="d11" value="11">Preset Cycle</option>
+                    <option id="d12" value="12">Color Cycle</option>
+                    <option id="d13" value="13">Gradient</option>
+                    <option id="d14" value="14">Auto</option>
+                    
+                </select>
+                <input class="inp-sub" type="submit" value="Save" id="subdef" onclick="submitdef()">
+            </div>
+            
+            <h2 class="label">Cycle Duration :</h2>
+            <div class="inp-div">
+                <select class="drop" id="timeop" onchange="changefmt()">
+                    <option value="s">Seconds</option>
+                    <option value="m">Minutes</option>
+                    <option value="h">Hours</option>
+                </select>
+                <input class="inp" type="number" id="cycledur">
+                <input class="inp-sub" type="submit" value="Save" onclick="submitdur()">
+            </div>
+
+            <h2 class="label">WIFI :</h2>
+            <div class="inp-div" style="padding: 0;">
+                <p class="label" style="width: 20%;">SSID :</p>
+                <input class="inp" style="width: 80%;" type="text" id="ssidbox">
+            </div>
+            <div class="inp-div" style="padding: 0;">
+                <p class="label" style="width: 20%;">Pass :</p>
+                <input class="inp" style="width: 80%;" type="text" id="passbox">
+            </div>
+            <div class="inp-div">
+                <input class="inp-sub" style="width: 100%; padding: 0;" type="submit" value="Save & Reconnect" onclick="savewifi()">
+            </div>
+            <div style="margin: 0; padding-bottom: 20px; display: flex; justify-content: center; width: 90%;">
+                <p style="color:#4f4f4f; font-size: 20px;">Developed by DEBU. Hope I brought a Smile : )</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const imageContainer = document.getElementById('image-container');
+        const image = document.getElementById('image');
+        const indicator = document.getElementById('indicator');
+        const but1=document.getElementById('but1');
+        const but2=document.getElementById('but2');
+        const but3=document.getElementById('but3');
+        const cyc=document.getElementById("cycledur");
+        const timebox=document.getElementById("timeop")
+        const defthemebox=document.getElementById("deftheme");
+        const ssidbox=document.getElementById("ssidbox");
+        const passbox=document.getElementById("passbox");
+
+        var selected_color=1;
+        var power_state=0;
+        var theme=0;
+        var bright=100;
+        var color1="";
+        var color2="";
+        var color3="";
+        
+        function update_values(){
+            fetch(window.location.href+"get",{method:'GET',headers:{'Content-Type': 'application/json'}})
+            .then(response=>response.json())
+            .then(data=>{
+                bright=data["bright"];
+                spd=data["spd"];
+                theme=data["theme"];
+
+                const slide=document.getElementById("slider");
+                slide.value=bright;
+                
+                const slide2=document.getElementById("slider2");
+                slide2.value=spd;
+
+                defthemebox.selectedIndex=data["default"]-1;
+
+                if(theme!=0){
+                    const but=document.getElementById("b"+theme);
+                    but.style.background=`#fcf1dc`;
+                }
+
+                cyc.value=data["cycle"];
+                ssidbox.value=data["ssid"];
+
+
+            })
+            .catch(error=>{console.error(error);});
+        }
+
+        function update_colors(){
+            fetch(window.location.href+"getcolor",{method:'GET',headers:{'Content-Type': 'application/json'}})
+            .then(response=>response.json())
+            .then(data=>{
+                but1.style.backgroundColor=`rgb(${data["c1r"]}, ${data["c1g"]}, ${data["c1b"]})`;
+                but2.style.backgroundColor=`rgb(${data["c2r"]}, ${data["c2g"]}, ${data["c2b"]})`;
+                but3.style.backgroundColor=`rgb(${data["c3r"]}, ${data["c3g"]}, ${data["c3b"]})`;
+            })
+            .catch(error=>{console.error(error);});
+        }
+        
+        update_values();
+        update_colors();
+
+        
+
+        const power=document.getElementById('pwr');
+        power.addEventListener('click',function(){
+            power_state=0;
+            var date=new Date();
+            var tsecs=date.getHours()*60+date.getMinutes();
+            fetch(window.location.href+"theme?themeid=0&ss="+tsecs,{method:'GET',headers:{'Content-Type': 'application/json'}})
+            .catch(error=>{console.error(error);});
+            const but_prev=document.getElementById('b'+theme);
+            but_prev.style.background=`#ffe1a8`;
+            theme=0;
+        });
+        
+
+        function updateValue(value){
+            bright=value;
+            fetch(window.location.href+"set_bright?bright="+bright,{method:'GET',headers:{'Content-Type': 'application/json'}})
+            .catch(error=>{console.error(error);});
+        }
+
+        function updateSpeed(value){
+            spd=value;
+            fetch(window.location.href+"chngspeed?chng="+spd,{method:'GET',headers:{'Content-Type': 'application/json'}})
+            .catch(error=>{console.error(error);});
+        }
+
+        function setTheme(id){
+            const but=document.getElementById(id);
+            but.style.background=`#fcf1dc`;
+            var date=new Date();
+            var tsecs=date.getHours()*60+date.getMinutes();
+            if(theme!=0){
+                const but_prev=document.getElementById('b'+theme);
+                theme=but.value;
+                console.log(tsecs);
+
+                but_prev.style.background=`#ffe1a8`;
+                console.log(but.value);
+                fetch(window.location.href+"theme?themeid="+theme+"&ss="+tsecs,{method:'GET',headers:{'Content-Type': 'application/json'}})
+                .catch(error=>{console.error(error);});
+            
+        }else{
+                theme=but.value;
+                console.log(tsecs);
+                
+                console.log(but.value);
+                fetch(window.location.href+"theme?themeid="+theme+"&ss="+tsecs,{method:'GET',headers:{'Content-Type': 'application/json'}})
+                .catch(error=>{console.error(error);});
+            
+        }
+
+        }
+
+        function submitdef(){
+            console.log(defthemebox.value);
+            fetch(window.location.href+"savetheme?deftheme="+defthemebox.value,{method:'GET',headers:{'Content-Type': 'application/json'}})
+            .catch(error=>{console.error(error);});
+
+        }
+
+
+        function submitdur(){
+            if(cyc.value==''){
+                alert("Enter the Field!");
+                return;
+            }
+            switch(timebox.value){
+                case "s":
+                    fetch(window.location.href+"savecycle?delta="+cyc.value,{method:'GET',headers:{'Content-Type': 'application/json'}})
+                    .catch(error=>{console.error(error);});
+                    break;
+                case "m":
+                    fetch(window.location.href+"savecycle?delta="+(cyc.value*60),{method:'GET',headers:{'Content-Type': 'application/json'}})
+                    .catch(error=>{console.error(error);});
+                    break;
+                case "h":
+                    fetch(window.location.href+"savecycle?delta="+(cyc.value*3600),{method:'GET',headers:{'Content-Type': 'application/json'}})
+                    .catch(error=>{console.error(error);});
+                    break;
+            }
+        }
+
+        function savewifi(){
+            if(ssidbox.value=='' || passbox.value==''){
+                alert("Enter Wifi and password!");
+                return;
+            }
+            fetch(window.location.href+"savewifi?ssid="+ssidbox.value+"&pass="+passbox.value,{method:'GET',headers:{'Content-Type': 'application/json'}})
+            .catch(error=>{console.error(error);});
+        }
+
+        const theme1=document.getElementById('b1');
+        theme1.addEventListener('click',()=>setTheme(theme1.id));
+        const theme2=document.getElementById('b2');
+        theme2.addEventListener('click',()=>setTheme(theme2.id));
+        const theme3=document.getElementById('b3');
+        theme3.addEventListener('click',()=>setTheme(theme3.id));
+        const theme4=document.getElementById('b4');
+        theme4.addEventListener('click',()=>setTheme(theme4.id));
+        const theme5=document.getElementById('b5');
+        theme5.addEventListener('click',()=>setTheme(theme5.id));
+        const theme6=document.getElementById('b6');
+        theme6.addEventListener('click',()=>setTheme(theme6.id));
+        const theme7=document.getElementById('b7');
+        theme7.addEventListener('click',()=>setTheme(theme7.id));
+        const theme8=document.getElementById('b8');
+        theme8.addEventListener('click',()=>setTheme(theme8.id));
+        const theme9=document.getElementById('b9');
+        theme9.addEventListener('click',()=>setTheme(theme9.id));
+        const theme10=document.getElementById('b10');
+        theme10.addEventListener('click',()=>setTheme(theme10.id));
+        const theme11=document.getElementById('b11');
+        theme11.addEventListener('click',()=>setTheme(theme11.id));
+        const theme12=document.getElementById('b12');
+        theme12.addEventListener('click',()=>setTheme(theme12.id));
+        const theme13=document.getElementById('b13');
+        theme13.addEventListener('click',()=>setTheme(theme13.id));
+        const theme14=document.getElementById('b14');
+        theme14.addEventListener('click',()=>setTheme(theme14.id));
+
+        
+        function button1click(){
+            selected_color=1;
+            but1.style.borderColor=`#000000`;
+            but2.style.borderColor=`#6b6b6b`;
+            but3.style.borderColor=`#6b6b6b`;
+        }
+        function button2click(){
+            selected_color=2;
+            but1.style.borderColor=`#6b6b6b`;
+            but2.style.borderColor=`#000000`;
+            but3.style.borderColor=`#6b6b6b`;
+        }
+        function button3click(){
+            selected_color=3;
+            but1.style.borderColor=`#6b6b6b`;
+            but2.style.borderColor=`#6b6b6b`;
+            but3.style.borderColor=`#000000`;
+        }
+        but1.addEventListener("click",button1click);
+        but2.addEventListener("click",button2click);
+        but3.addEventListener("click",button3click);
+
+        indicator.style.left=`250px`;
+        indicator.style.top=`250px`;
+
+
+        imageContainer.addEventListener('click', function (event) {
+            const bounds = image.getBoundingClientRect();
+            const x = event.clientX - bounds.left;
+            const y = event.clientY - bounds.top;
+
+            if (isPointInCircle(x, y, bounds.width / 2, bounds.height / 2, bounds.width / 2)) {
+                const canvas = document.createElement('canvas');
+                canvas.width = image.width;
+                canvas.height = image.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(image, 0, 0, image.width, image.height);
+
+                const pixel = ctx.getImageData(x, y, 1, 1).data;
+                const color = {
+                    r: pixel[0],
+                    g: pixel[1],
+                    b: pixel[2]
+                };
+
+                const hexColor = rgbToHex(color.r, color.g, color.b);
+
+                console.log(hexColor);
+
+                if(selected_color==1){
+                    color1=hexColor;
+                    fetch(window.location.href+"set_color?id="+selected_color+"&color="+color1,{method:'GET',headers:{'Content-Type': 'application/json'}})
+                    .catch(error=>{console.error(error);});
+                    but1.style.backgroundColor=`rgb(${color.r}, ${color.g}, ${color.b})`;
+                }else if(selected_color==2){
+                    color2=hexColor;
+                    fetch(window.location.href+"set_color?id="+selected_color+"&color="+color2,{method:'GET',headers:{'Content-Type': 'application/json'}})
+                    .catch(error=>{console.error(error);});
+                    but2.style.backgroundColor=`rgb(${color.r}, ${color.g}, ${color.b})`;
+                }else{
+                    color3=hexColor;
+                    fetch(window.location.href+"set_color?id="+selected_color+"&color="+color3,{method:'GET',headers:{'Content-Type': 'application/json'}})
+                    .catch(error=>{console.error(error);});
+                    but3.style.backgroundColor=`rgb(${color.r}, ${color.g}, ${color.b})`;
+                }
+
+                // Update indicator position
+                indicator.style.left = `${x - 5}px`;
+                indicator.style.top = `${y - 5}px`;
+                
+            }
+        });
+
+        function isPointInCircle(x, y, centerX, centerY, radius) {
+            const distanceSquared = (x - centerX) ** 2 + (y - centerY) ** 2;
+            return distanceSquared <= (radius ** 2);
+        }
+
+        function rgbToHex(r, g, b) {
+            return `${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
+        }
+
+        function componentToHex(c) {
+            const hex = c.toString(16);
+            return hex.length === 1 ? `0${hex}` : hex;
+        }
+
+        const savepalbut=document.getElementById("savepal");
+        savepalbut.addEventListener('click',function(){
+            fetch(window.location.href+"savepal",{method:'GET',headers:{'Content-Type': 'application/json'}})
+            .catch(error=>{console.error(error);});
+
+        })
+    </script>
+</body>
+</html>
